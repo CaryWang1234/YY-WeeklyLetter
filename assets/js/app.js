@@ -79,9 +79,10 @@
       a.className = 'issue-card';
       a.href = `#/issue/${encodeURIComponent(issue.id)}`;
 
-      const coverSrc = issue.cover
-        ? (issue.cover.thumb || issue.cover.view || issue.cover.src)
-        : null;
+      // 兼容旧清单(cover 为字符串)与新清单(cover 为 {src,view,thumb} 对象)
+      const coverSrc = !issue.cover ? null
+        : (typeof issue.cover === 'string' ? issue.cover
+          : (issue.cover.thumb || issue.cover.view || issue.cover.src));
       if (coverSrc) {
         const img = document.createElement('img');
         img.className = 'card-cover';
