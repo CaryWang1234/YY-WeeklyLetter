@@ -1,0 +1,19 @@
+{
+  "siteTitle": "耀阳周报",
+  "siteSubtitle": "YaoYang Weekly Newsletter",
+  "issues": [
+    {
+      "id": "2026-09-01",
+      "name": "耀阳周报26-9-1",
+      "folder": "耀阳周报26-9-1",
+      "year": 2026,
+      "month": 9,
+      "issue": 1,
+      "cover": "reports/耀阳周报26-9-1/1.png",
+      "pages": [
+        "reports/耀阳周报26-9-1/1.png",
+        "reports/耀阳周报26-9-1/2.png"
+      ]
+    }
+  ]
+}

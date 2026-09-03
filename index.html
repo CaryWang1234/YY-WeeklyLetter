@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>耀阳周报 · 往期存档</title>
+  <meta name="description" content="耀阳周报(YaoYang Weekly Newsletter)往期线上存档">
+  <meta name="theme-color" content="#a3452f">
+  <link rel="icon" href="assets/logo.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ============ 主页:往期归档 ============ -->
+  <section id="view-home" class="view active">
+    <header class="masthead">
+      <div class="mast-inner">
+        <div class="medallion" aria-hidden="true"><img src="assets/logo.png" alt="" width="372" height="372" decoding="async"></div>
+        <p class="mast-kicker">WEEKLY ARCHIVE · 每周一刊</p>
+        <h1 class="mast-title">耀阳周报</h1>
+        <p class="mast-en">YaoYang Weekly Newsletter</p>
+        <p class="mast-count" id="mast-count">整理中…</p>
+      </div>
+    </header>
+
+    <main class="archive">
+      <ul id="issue-grid" class="issue-grid"></ul>
+    </main>
+
+    <footer class="site-footer">
+      <p>耀阳周报 · 线上存档</p>
+      <p class="site-footer-note" id="footer-note"></p>
+    </footer>
+  </section>
+
+  <!-- ============ 阅读页:单期竖排翻阅 ============ -->
+  <section id="view-issue" class="view">
+    <header class="reader-bar">
+      <a class="bar-back" href="#/">‹ 归档</a>
+      <div class="bar-title">
+        <h1 id="issue-title"></h1>
+        <p id="issue-sub"></p>
+      </div>
+      <div class="bar-arrows">
+        <button type="button" id="prev-issue-btn" aria-label="上一期">‹</button>
+        <button type="button" id="next-issue-btn" aria-label="下一期">›</button>
+      </div>
+    </header>
+
+    <main class="reader">
+      <div class="reader-intro" id="reader-intro"></div>
+      <div class="pages" id="reader-pages"></div>
+
+      <nav class="issue-nav" id="issue-nav" aria-label="期次导航"></nav>
+
+      <p class="to-top"><a href="#/">↑ 返回往期归档</a></p>
+    </main>
+
+    <footer class="site-footer">
+      <p>耀阳周报 · 线上存档</p>
+      <p class="site-footer-note"></p>
+    </footer>
+  </section>
+
+  <noscript>
+    <p style="text-align:center;padding:2rem">本站需要启用 JavaScript 才能浏览,请开启后刷新。</p>
+  </noscript>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
