@@ -348,6 +348,7 @@ img { display: block; }
   border: 1px solid rgba(70, 53, 42, 0.08);
   border-radius: 10px;
   box-shadow: var(--shadow);
+  text-align: center;
 }
 .page img {
   width: 100%;
@@ -355,6 +356,15 @@ img { display: block; }
   border-radius: 5px;
   background: #f1e6cf;
 }
+.page-original {
+  display: inline-block;
+  margin: 10px auto 2px;
+  font-size: 12px;
+  color: var(--ink-2);
+  border-bottom: 1px dashed var(--line);
+  transition: color 0.2s, border-color 0.2s;
+}
+.page-original:hover { color: var(--brick); border-color: var(--brick); }
 
 /* 底部期次导航 */
 .issue-nav { padding: 22px 0 6px; }

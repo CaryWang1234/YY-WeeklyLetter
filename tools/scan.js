@@ -28,6 +28,25 @@ function parseIssue(name) {
 // 自然排序:把「2.png」排在「10.png」前面
 const naturalCmp = new Intl.Collator('zh', { numeric: true, sensitivity: 'base' }).compare;
 
+const OPT_DIR = path.join(__dirname, '..', 'optimized');
+
+// 原图 reports/<folder>/x.png 对应压缩图 optimized/<folder>/x.webp
+// 生成过就用压缩图(网页加载快),没有则回退原图
+function pickView(rel) {
+  const webp = rel.replace(/^reports\//, 'optimized/').replace(/\.[^.]+$/, '.webp');
+  const abs = path.join(OPT_DIR, webp.replace(/^optimized[\\/]/, ''));
+  return fs.existsSync(abs) ? webp : rel;
+}
+
+// 封面缩略图 optimized/<folder>/x.thumb.webp,同样带回退
+function pickThumb(rel) {
+  const m = rel.match(/^optimized[\\/](.+?)[\\/](.+)\.webp$/);
+  if (!m) return rel;
+  const thumb = `optimized/${m[1]}/${m[2]}.thumb.webp`;
+  const abs = path.join(OPT_DIR, m[1], `${m[2]}.thumb.webp`);
+  return fs.existsSync(abs) ? thumb : rel;
+}
+
 function scan() {
   if (!fs.existsSync(REPORTS_DIR)) {
     fs.mkdirSync(REPORTS_DIR, { recursive: true });
@@ -40,10 +59,15 @@ function scan() {
     .map((e) => {
       const folder = e.name;
       const folderPath = path.join(REPORTS_DIR, folder);
-      const pages = fs.readdirSync(folderPath)
+      const pageSrcs = fs.readdirSync(folderPath)
         .filter((f) => IMAGE_RE.test(f) && !f.startsWith('.'))
         .sort(naturalCmp)
         .map((f) => `reports/${folder}/${f}`);
+      const pages = pageSrcs.map((src) => ({ src, view: pickView(src) }));
+      const first = pages[0] || null;
+      const cover = first
+        ? { src: first.src, view: first.view, thumb: pickThumb(first.view) }
+        : null;
 
       const parsed = parseIssue(folder);
       return {
@@ -53,7 +77,7 @@ function scan() {
           name: folder,
           folder,
           ...(parsed ? { year: parsed.y, month: parsed.m, issue: parsed.issue } : {}),
-          cover: pages[0] || null,
+          cover,
           pages,
         },
       };

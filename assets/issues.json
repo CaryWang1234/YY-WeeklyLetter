@@ -9,10 +9,20 @@
       "year": 2026,
       "month": 9,
       "issue": 1,
-      "cover": "reports/耀阳周报26-9-1/1.png",
+      "cover": {
+        "src": "reports/耀阳周报26-9-1/1.png",
+        "view": "optimized/耀阳周报26-9-1/1.webp",
+        "thumb": "optimized/耀阳周报26-9-1/1.thumb.webp"
+      },
       "pages": [
-        "reports/耀阳周报26-9-1/1.png",
-        "reports/耀阳周报26-9-1/2.png"
+        {
+          "src": "reports/耀阳周报26-9-1/1.png",
+          "view": "optimized/耀阳周报26-9-1/1.webp"
+        },
+        {
+          "src": "reports/耀阳周报26-9-1/2.png",
+          "view": "optimized/耀阳周报26-9-1/2.webp"
+        }
       ]
     }
   ]

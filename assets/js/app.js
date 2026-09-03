@@ -79,15 +79,18 @@
       a.className = 'issue-card';
       a.href = `#/issue/${encodeURIComponent(issue.id)}`;
 
-      if (issue.cover) {
+      const coverSrc = issue.cover
+        ? (issue.cover.thumb || issue.cover.view || issue.cover.src)
+        : null;
+      if (coverSrc) {
         const img = document.createElement('img');
         img.className = 'card-cover';
         img.loading = 'lazy';
         img.decoding = 'async';
         img.alt = `${issue.name} 封面`;
-        img.width = 540;
-        img.height = 960;
-        img.src = issue.cover;
+        img.width = 420;
+        img.height = 747;
+        img.src = coverSrc;
         a.appendChild(img);
       }
 
@@ -141,18 +144,30 @@
 
     // 页面
     readerPages.textContent = '';
-    issue.pages.forEach((src, pi) => {
+    issue.pages.forEach((page, pi) => {
+      const src = page.src || page;
+      const view = page.view || src;
       const fig = document.createElement('figure');
       fig.className = 'page';
 
       const img = document.createElement('img');
-      img.loading = 'lazy';
+      img.loading = pi === 0 ? 'eager' : 'lazy';
       img.decoding = 'async';
       img.alt = `${issue.name} 第 ${pi + 1} 页 / 共 ${issue.pages.length} 页`;
       img.width = 540;
       img.height = 960;
-      img.src = src;
+      img.src = view;
       fig.appendChild(img);
+
+      if (src && src !== view) {
+        const orig = document.createElement('a');
+        orig.className = 'page-original';
+        orig.href = src;
+        orig.target = '_blank';
+        orig.rel = 'noopener';
+        orig.textContent = '查看原图';
+        fig.appendChild(orig);
+      }
       readerPages.appendChild(fig);
     });
 
