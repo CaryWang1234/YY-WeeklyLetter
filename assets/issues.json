@@ -3,6 +3,83 @@
   "siteSubtitle": "YaoYang Weekly Newsletter",
   "issues": [
     {
+      "id": "2025-10-01",
+      "name": "耀阳周报25-10-1",
+      "folder": "耀阳周报25-10-1",
+      "year": 2025,
+      "month": 10,
+      "issue": 1,
+      "cover": {
+        "src": "reports/耀阳周报25-10-1/1.png",
+        "view": "optimized/耀阳周报25-10-1/1.webp",
+        "thumb": "optimized/耀阳周报25-10-1/1.thumb.webp"
+      },
+      "pages": [
+        {
+          "src": "reports/耀阳周报25-10-1/1.png",
+          "view": "optimized/耀阳周报25-10-1/1.webp"
+        },
+        {
+          "src": "reports/耀阳周报25-10-1/2.png",
+          "view": "optimized/耀阳周报25-10-1/2.webp"
+        },
+        {
+          "src": "reports/耀阳周报25-10-1/3.png",
+          "view": "optimized/耀阳周报25-10-1/3.webp"
+        },
+        {
+          "src": "reports/耀阳周报25-10-1/4.png",
+          "view": "optimized/耀阳周报25-10-1/4.webp"
+        }
+      ]
+    },
+    {
+      "id": "2025-11-02",
+      "name": "耀阳周报25-11-2",
+      "folder": "耀阳周报25-11-2",
+      "year": 2025,
+      "month": 11,
+      "issue": 2,
+      "cover": {
+        "src": "reports/耀阳周报25-11-2/1.png",
+        "view": "optimized/耀阳周报25-11-2/1.webp",
+        "thumb": "optimized/耀阳周报25-11-2/1.thumb.webp"
+      },
+      "pages": [
+        {
+          "src": "reports/耀阳周报25-11-2/1.png",
+          "view": "optimized/耀阳周报25-11-2/1.webp"
+        },
+        {
+          "src": "reports/耀阳周报25-11-2/2.png",
+          "view": "optimized/耀阳周报25-11-2/2.webp"
+        }
+      ]
+    },
+    {
+      "id": "2025-11-03",
+      "name": "耀阳周报25-11-3",
+      "folder": "耀阳周报25-11-3",
+      "year": 2025,
+      "month": 11,
+      "issue": 3,
+      "cover": {
+        "src": "reports/耀阳周报25-11-3/1.png",
+        "view": "optimized/耀阳周报25-11-3/1.webp",
+        "thumb": "optimized/耀阳周报25-11-3/1.thumb.webp"
+      },
+      "pages": [
+        {
+          "src": "reports/耀阳周报25-11-3/1.png",
+          "view": "optimized/耀阳周报25-11-3/1.webp"
+        },
+        {
+          "src": "reports/耀阳周报25-11-3/2.png",
+          "view": "optimized/耀阳周报25-11-3/2.webp"
+        }
+      ]
+    },
+    {
       "id": "2025-11-04",
       "name": "耀阳周报25-11-4",
       "folder": "耀阳周报25-11-4",
