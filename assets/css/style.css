@@ -245,6 +245,85 @@ img { display: block; }
   border-radius: 10px;
 }
 .issue-error code { background: var(--bg-2); padding: 1px 6px; border-radius: 4px; }
+.issue-error p { margin: 0 0 8px; }
+
+/* ---------- 归档筛选工具条 ---------- */
+.archive-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin: 0 0 4px;
+}
+.archive-tools[hidden] { display: none; }
+
+.tool-search { width: 100%; max-width: 380px; }
+
+.filter-input {
+  width: 100%;
+  padding: 9px 20px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  outline: none;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.filter-input::placeholder { color: var(--ink-2); opacity: 0.75; }
+.filter-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(197, 155, 82, 0.16), var(--shadow-sm);
+}
+
+.tool-chips { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+.chip-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+
+.chip {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink-2);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.55;
+  padding: 3px 15px;
+  border-radius: 99px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px -6px rgba(70, 45, 20, 0.35);
+  transition: color 0.18s, border-color 0.18s, background 0.18s, transform 0.18s;
+}
+.chip:hover { color: var(--brick); border-color: var(--gold-soft); transform: translateY(-1px); }
+.chip.active { background: var(--brick); border-color: var(--brick); color: #fff; }
+
+.tool-clear {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--brick-deep);
+  cursor: pointer;
+  padding: 0 2px 1px;
+  border-bottom: 1px dashed rgba(163, 69, 47, 0.5);
+}
+.tool-clear:hover { border-bottom-style: solid; }
+
+.issue-error-btn {
+  appearance: none;
+  border: 1px solid rgba(163, 69, 47, 0.4);
+  background: rgba(255, 250, 240, 0.9);
+  color: var(--brick-deep);
+  font-family: var(--font-body);
+  font-size: 13px;
+  padding: 4px 16px;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.issue-error-btn:hover { background: var(--brick); color: #fff; }
 
 /* ============================================================
    阅读页

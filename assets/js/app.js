@@ -17,10 +17,16 @@
   const issueNav = $('#issue-nav');
   const prevIssueBtn = $('#prev-issue-btn');
   const nextIssueBtn = $('#next-issue-btn');
+  const archiveTools = $('#archive-tools');
+  const yearChipsEl = $('#year-chips');
+  const monthChipsEl = $('#month-chips');
+  const filterQ = $('#filter-q');
+  const filterClear = $('#filter-clear');
 
   let data = null;       // 清单原文
   let issues = [];       // 按 年→月→当月期号 升序
   let currentIdx = -1;   // 阅读中第几期
+  const filter = { year: null, month: null, q: '' };  // 归档筛选:年 / 月 / 关键词
 
   const pad2 = (n) => String(n).padStart(2, '0');
   // 期号含义:年-月-当月第 n 期(如 2026-09-01 = 2026年9月第1期)
@@ -35,6 +41,82 @@
     String(s).replace(/[&<>"']/g, (c) => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
     }[c]));
+
+  /* ---------- 归档筛选 ---------- */
+  const distinctYears = () =>
+    [...new Set(issues.filter((i) => i.year).map((i) => i.year))].sort((a, b) => b - a);
+  const distinctMonths = (year) =>
+    [...new Set(issues.filter((i) => i.year === year && i.month).map((i) => i.month))].sort((a, b) => b - a);
+
+  // 供关键词匹配的检索文本:期名 / id / 年份 / 月份 / 当月期号
+  const haystackOf = (issue) => {
+    const bits = [issue.name, issue.id || ''];
+    if (issue.year) {
+      bits.push(
+        String(issue.year), String(issue.year).slice(2),
+        `${issue.month}月`, `第${issue.issue}期`, String(issue.issue),
+      );
+    }
+    return bits.join(' ').toLowerCase();
+  };
+
+  const matchesFilter = (issue) => {
+    if (filter.year && issue.year !== filter.year) return false;
+    if (filter.month && issue.month !== filter.month) return false;
+    const q = filter.q.trim().toLowerCase();
+    return !q || haystackOf(issue).includes(q);
+  };
+
+  function resetFilters() {
+    filter.year = null;
+    filter.month = null;
+    filter.q = '';
+    filterQ.value = '';
+    renderHome();
+  }
+
+  function renderChips() {
+    const mkChip = (container, label, active, onClick) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip' + (active ? ' active' : '');
+      b.textContent = label;
+      b.addEventListener('click', onClick);
+      container.appendChild(b);
+    };
+
+    yearChipsEl.textContent = '';
+    mkChip(yearChipsEl, '全部年份', !filter.year, () => {
+      filter.year = null;
+      filter.month = null;
+      renderHome();
+    });
+    distinctYears().forEach((y) => {
+      mkChip(yearChipsEl, `${y} 年`, filter.year === y, () => {
+        filter.year = y;
+        filter.month = null;
+        renderHome();
+      });
+    });
+
+    const months = filter.year ? distinctMonths(filter.year) : [];
+    monthChipsEl.hidden = months.length === 0;
+    if (months.length > 0) {
+      monthChipsEl.textContent = '';
+      mkChip(monthChipsEl, '全部月份', !filter.month, () => {
+        filter.month = null;
+        renderHome();
+      });
+      months.forEach((m) => {
+        mkChip(monthChipsEl, `${m} 月`, filter.month === m, () => {
+          filter.month = m;
+          renderHome();
+        });
+      });
+    }
+
+    filterClear.hidden = !(filter.year || filter.month || filter.q.trim());
+  }
 
   /* ---------- 路由 ---------- */
   const parseHash = () => {
@@ -64,12 +146,46 @@
     if (!data) return;
     const total = issues.length;
     const pageCount = issues.reduce((n, i) => n + i.pages.length, 0);
-    mastCount.textContent = `共 ${total} 期 · ${pageCount} 页,最新在前`;
+    archiveTools.hidden = total === 0;
+    renderChips();
+
+    const visible = issues.filter(matchesFilter);
+    const label = [
+      filter.year ? `${filter.year}年` : '',
+      filter.month ? `${filter.month}月` : '',
+      filter.q.trim() ? `含「${filter.q.trim()}」` : '',
+    ].join('').trim();
+
+    if (!label) {
+      mastCount.textContent = `共 ${total} 期 · ${pageCount} 页,最新在前`;
+    } else {
+      mastCount.textContent = visible.length > 0
+        ? `筛选 ${label} · ${visible.length} 期`
+        : `筛选 ${label} · 无结果`;
+    }
     footerNote.textContent = '把新一期的文件夹放进 reports/ 并运行 node tools/scan.js,即可自动收录。';
 
     // 最新在前
-    const order = [...issues].reverse();
+    const order = [...visible].reverse();
     issueGrid.textContent = '';
+
+    if (order.length === 0) {
+      const li = document.createElement('li');
+      li.className = 'issue-error';
+      const p = document.createElement('p');
+      p.textContent = total === 0
+        ? '还没有收录任何一期,添加后会自动显示。'
+        : (filter.q.trim() ? `没有匹配「${filter.q.trim()}」的期次。` : '该时间段还没有收录期次。');
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'issue-error-btn';
+      btn.textContent = '清除筛选';
+      btn.addEventListener('click', resetFilters);
+      li.appendChild(p);
+      li.appendChild(btn);
+      issueGrid.appendChild(li);
+      return;
+    }
 
     order.forEach((issue, cardIdx) => {
       const li = document.createElement('li');
@@ -234,6 +350,12 @@
         location.hash = `#/issue/${encodeURIComponent(issues[currentIdx + 1].id)}`;
       }
     });
+
+    filterQ.addEventListener('input', () => {
+      filter.q = filterQ.value;
+      renderHome();
+    });
+    filterClear.addEventListener('click', resetFilters);
 
     window.addEventListener('hashchange', navigate);
 
