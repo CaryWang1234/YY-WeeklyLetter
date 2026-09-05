@@ -4,6 +4,28 @@
   const MANIFEST_URL = './assets/issues.json';
   const $ = (sel, root = document) => root.querySelector(sel);
 
+  // 图片改由 jsDelivr 免费 CDN 从本仓库分发(大陆访问比直连 GitHub 快)。
+  // 图片 URL 自带内容哈希(?v=),新内容即新网址,发布后无需清缓存;
+  // 清单/脚本仍走本站,保证更新即时生效。本地预览时自动退回本机相对路径。
+  const CDN_ORIGIN = 'https://cdn.jsdelivr.net/gh/CaryWang1234/YY-WeeklyLetter@main/';
+  const isLocalPreview = location.protocol === 'file:' ||
+    /^(localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])$/i.test(location.hostname);
+
+  const assetOf = (p) => {
+    if (!p || /^https?:\/\//i.test(p) || isLocalPreview) return p;
+    return CDN_ORIGIN + p.replace(/^\.\//, '');
+  };
+
+  // CDN 加载失败时回退到本站同源地址重试一次,避免 CDN 故障导致图片空白
+  const fallbackToLocal = (img, localSrc) => {
+    img.addEventListener('error', function onErr() {
+      if (img.src.indexOf(CDN_ORIGIN) === 0) {
+        img.removeEventListener('error', onErr);
+        img.src = localSrc;
+      }
+    });
+  };
+
   const viewHome = $('#view-home');
   const viewIssue = $('#view-issue');
   const issueGrid = $('#issue-grid');
@@ -207,7 +229,8 @@
         img.alt = `${issue.name} 封面`;
         img.width = 420;
         img.height = 747;
-        img.src = coverSrc;
+        img.src = assetOf(coverSrc);
+        fallbackToLocal(img, coverSrc);
         a.appendChild(img);
       }
 
@@ -273,7 +296,8 @@
       img.alt = `${issue.name} 第 ${pi + 1} 页 / 共 ${issue.pages.length} 页`;
       img.width = 540;
       img.height = 960;
-      img.src = view;
+      img.src = assetOf(view);
+      fallbackToLocal(img, view);
       fig.appendChild(img);
 
       if (src && src !== view) {
