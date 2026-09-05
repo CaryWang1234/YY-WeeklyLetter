@@ -47,6 +47,20 @@ function pickThumb(rel) {
   return fs.existsSync(abs) ? thumb : rel;
 }
 
+// 给图片 URL 加内容哈希版本号:覆盖同一期时文件名不变,但内容变了,
+// 带上 ?v=<哈希> 后网址跟着变,浏览器才不会用旧缓存(封面/阅读页都适用)
+function versioned(url) {
+  if (!url) return url;
+  let hash;
+  try {
+    const buf = fs.readFileSync(path.join(__dirname, '..', url));
+    hash = require('crypto').createHash('sha1').update(buf).digest('hex').slice(0, 10);
+  } catch {
+    return url; // 文件缺失时保持原样,不阻塞收录
+  }
+  return `${url}?v=${hash}`;
+}
+
 function scan() {
   if (!fs.existsSync(REPORTS_DIR)) {
     fs.mkdirSync(REPORTS_DIR, { recursive: true });
@@ -77,8 +91,17 @@ function scan() {
           name: folder,
           folder,
           ...(parsed ? { year: parsed.y, month: parsed.m, issue: parsed.issue } : {}),
-          cover,
-          pages,
+          cover: cover
+            ? {
+                src: versioned(cover.src),
+                view: versioned(cover.view),
+                thumb: versioned(cover.thumb),
+              }
+            : null,
+          pages: pages.map((p) => ({
+            src: versioned(p.src),
+            view: versioned(p.view),
+          })),
         },
       };
     })
