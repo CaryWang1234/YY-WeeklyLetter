@@ -560,6 +560,33 @@
           "view": "optimized/耀阳周报26-9-3/3.webp?v=12ec1b8e60"
         }
       ]
+    },
+    {
+      "id": "2026-09-04",
+      "name": "耀阳周报26-9-4",
+      "folder": "耀阳周报26-9-4",
+      "year": 2026,
+      "month": 9,
+      "issue": 4,
+      "cover": {
+        "src": "reports/耀阳周报26-9-4/1.png?v=36968b9e98",
+        "view": "optimized/耀阳周报26-9-4/1.webp?v=77f81654ff",
+        "thumb": "optimized/耀阳周报26-9-4/1.thumb.webp?v=a5f66f3f15"
+      },
+      "pages": [
+        {
+          "src": "reports/耀阳周报26-9-4/1.png?v=36968b9e98",
+          "view": "optimized/耀阳周报26-9-4/1.webp?v=77f81654ff"
+        },
+        {
+          "src": "reports/耀阳周报26-9-4/2.png?v=e3474eabcb",
+          "view": "optimized/耀阳周报26-9-4/2.webp?v=502a859427"
+        },
+        {
+          "src": "reports/耀阳周报26-9-4/3.png?v=b258094751",
+          "view": "optimized/耀阳周报26-9-4/3.webp?v=99fbbb391c"
+        }
+      ]
     }
   ]
 }
