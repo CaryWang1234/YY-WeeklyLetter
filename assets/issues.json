@@ -587,6 +587,29 @@
           "view": "optimized/耀阳周报26-9-4/3.webp?v=99fbbb391c"
         }
       ]
+    },
+    {
+      "id": "2026-10-01",
+      "name": "耀阳周报26-10-1",
+      "folder": "耀阳周报26-10-1",
+      "year": 2026,
+      "month": 10,
+      "issue": 1,
+      "cover": {
+        "src": "reports/耀阳周报26-10-1/1.png?v=857127fc5d",
+        "view": "optimized/耀阳周报26-10-1/1.webp?v=b41fdd32ba",
+        "thumb": "optimized/耀阳周报26-10-1/1.thumb.webp?v=ef1f5e9511"
+      },
+      "pages": [
+        {
+          "src": "reports/耀阳周报26-10-1/1.png?v=857127fc5d",
+          "view": "optimized/耀阳周报26-10-1/1.webp?v=b41fdd32ba"
+        },
+        {
+          "src": "reports/耀阳周报26-10-1/2.png?v=7315f1fb86",
+          "view": "optimized/耀阳周报26-10-1/2.webp?v=e18001fc31"
+        }
+      ]
     }
   ]
 }
