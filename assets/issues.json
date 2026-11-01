@@ -656,6 +656,25 @@
           "view": "optimized/耀阳周报26-10-3/2.webp?v=c192a687fe"
         }
       ]
+    },
+    {
+      "id": "2026-11-01",
+      "name": "耀阳周报26-11-1",
+      "folder": "耀阳周报26-11-1",
+      "year": 2026,
+      "month": 11,
+      "issue": 1,
+      "cover": {
+        "src": "reports/耀阳周报26-11-1/1.png?v=8755971672",
+        "view": "optimized/耀阳周报26-11-1/1.webp?v=02dafbb1a2",
+        "thumb": "optimized/耀阳周报26-11-1/1.thumb.webp?v=89c5d4e90d"
+      },
+      "pages": [
+        {
+          "src": "reports/耀阳周报26-11-1/1.png?v=8755971672",
+          "view": "optimized/耀阳周报26-11-1/1.webp?v=02dafbb1a2"
+        }
+      ]
     }
   ]
 }
